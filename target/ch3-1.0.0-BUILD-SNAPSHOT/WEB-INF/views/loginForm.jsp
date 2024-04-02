@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
     <div class="container">
         <input type="text" placeholder="Enter Username" name="userId" value="${cookie.userId.value}">
         <input type="password" placeholder="Enter Password" name="pwd">
-        <input type="text" name="toURL" value="${param.toURL}">
+        <input type="hidden" name="toURL" value="${param.toURL}">
         <input type="checkbox" name="remember" value="on" ${empty cookie.userId.value ? "":"checked"}> Remember me
 
         <button type="submit">Login</button>
