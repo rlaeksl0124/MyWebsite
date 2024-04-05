@@ -25,7 +25,9 @@ public class BoardDto {
         return Objects.hash(bno, title, content, writer);
     }
 
-    public BoardDto(){}
+    public BoardDto(){
+        this("","","");
+    }
     public BoardDto(String title, String content, String writer) {
         this.title = title;
         this.content = content;
@@ -64,19 +66,19 @@ public class BoardDto {
         this.writer = writer;
     }
 
-    public Integer getView_cnt() {
+    public int getView_cnt() {
         return view_cnt;
     }
 
-    public void setView_cnt(Integer view_cnt) {
+    public void setView_cnt(int view_cnt) {
         this.view_cnt = view_cnt;
     }
 
-    public Integer getComment_cnt() {
+    public int getComment_cnt() {
         return comment_cnt;
     }
 
-    public void setComment_cnt(Integer comment_cnt) {
+    public void setComment_cnt(int comment_cnt) {
         this.comment_cnt = comment_cnt;
     }
 
@@ -87,6 +89,7 @@ public class BoardDto {
     public void setReg_date(Date reg_date) {
         this.reg_date = reg_date;
     }
+
 
     @Override
     public String toString() {
