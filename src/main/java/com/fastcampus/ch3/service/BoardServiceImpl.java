@@ -14,7 +14,7 @@ public class BoardServiceImpl implements BoardService {
     BoardDao boardDao;
 
     @Override
-    public int ser_Count() throws Exception {
+    public int getCount() throws Exception {
         return boardDao.count();
     }
 
@@ -35,16 +35,18 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardDto read(Integer bno) throws Exception {
-        return boardDao.select(bno);
+        BoardDto boardDto = boardDao.select(bno);
+        boardDao.increaseViewCnt(bno);
+        return boardDto;
     }
 
     @Override
-    public List<BoardDto> ser_getPage(Map map) throws Exception{
+    public List<BoardDto> getPage(Map map) throws Exception{
         return boardDao.selectPage(map);
     }
 
     @Override
-    public int ser_update(BoardDto board) throws Exception {
+    public int update(BoardDto board) throws Exception {
         return boardDao.update(board);
     }
 

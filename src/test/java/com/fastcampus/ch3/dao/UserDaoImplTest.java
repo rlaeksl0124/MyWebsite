@@ -32,7 +32,7 @@ public class UserDaoImplTest {
         assertTrue(userDao.updateUser(user)==1);
         assertTrue(userDao.count()==1);
 
-        UserDto user2 = userDao.selectUser(user);
+        UserDto user2 = userDao.selectUser(user.getUserId());
         assertEquals(user, user2);
     }
 
@@ -45,7 +45,7 @@ public class UserDaoImplTest {
         assertTrue(userDao.count()==1);
 
         // selectUser
-        UserDto userDto2 = userDao.selectUser(user);
+        UserDto userDto2 = userDao.selectUser(user.getUserId());
         assertEquals(user, userDto2);
     }
 

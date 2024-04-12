@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
         .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
@@ -37,15 +38,47 @@
 
     </div>
 </div>
-
+<script>
+    let msg = "${msg}";
+    if(msg=="WRT_OK") alert("성공적으로 등록되었습니다.")
+    if(msg=="DEL_OK") alert("성공적으로 삭제되었습니다.")
+    if(msg=="DEL_ERR") alert("삭제에 실패하였습니다.")
+</script>
 <!-- Header -->
 <header class="w3-container w3-red w3-center"
         style="padding: 128px 16px">
-    <h1>This is board</h1>
-    <h1>This is board</h1>
-    <h1>This is board</h1>
-    <h1>This is board</h1>
-    <h1>This is board</h1>
+    <button type="button" id="writeBtn">글쓰기</button>
+    <table>
+        <tr>
+            <td class="number">번호</td>
+            <td class="title">제목</td>
+            <td class="writer">작성자</td>
+            <td class="regdate">등록일</td>
+            <td class="viewCnt">조회수</td>
+        </tr>
+
+        <c:forEach var="boardDto" items="${list}">
+            <tr>
+                <td class="number">${boardDto.bno}</td>
+                <td class="title"><a href="<c:url value='/board/read?bno=${boardDto.bno}&curPage=${curPage}&pageSize=${pageSize}'/>">${boardDto.title}</a></td>
+                <td class="writer">${boardDto.writer}</td>
+                <td class="regdate">${boardDto.reg_date}</td>
+                <td class="viewCnt">${boardDto.view_cnt}</td>
+            </tr>
+        </c:forEach>
+    </table>
+    <br>
+    <div>
+        <c:if test="${ph.showPrev}">
+            <a href="<c:url value='/board/list?curPage=${ph.naviStart-1}&pageSize=${ph.pageSize}'/>">&lt;</a>
+        </c:if>
+        <c:forEach var="i" begin="${ph.naviStart}" end="${ph.naviEnd}">
+            <a href="<c:url value='/board/list?curPage=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
+        </c:forEach>
+        <c:if test="${ph.showNext}">
+            <a href="<c:url value='/board/list?curPage=${ph.naviEnd+1}&pageSize=${ph.pageSize}'/>">&gt;</a>
+        </c:if>
+    </div>
 </header>
 
 <!-- Footer -->
@@ -74,6 +107,15 @@
             x.className = x.className.replace(" w3-show", "");
         }
     }
+
+    $(document).ready(function (){
+        $('#writeBtn').on("click", function (){
+            alert("writeBtn clicked");
+            location.href="<c:url value='/board/write'/>";
+        })
+    })
+
+
 </script>
 
 </body>

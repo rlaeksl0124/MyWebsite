@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -14,6 +18,16 @@ import static org.junit.Assert.*;
 public class BoardDaoImplTest {
     @Autowired
     private BoardDao boardDao;
+
+    @Test
+    public void insertTestData() throws Exception {
+        boardDao.deleteAll();
+        for(int i=0; i<=400; i++){
+            BoardDto boardDto = new BoardDto("title"+i,"content", "asdf");
+            boardDao.insert(boardDto);
+        }
+    }
+
 
     @Test
     public void count() throws Exception {
@@ -88,7 +102,7 @@ public class BoardDaoImplTest {
         assertTrue(boardDao.insert(board)==1);
         assertTrue(boardDao.count()==3);
 
-        // 0번째 bno 삭제후 count 2개확인
+        // 0번째 bno 삭제후 count 2개확인, deleteAll 2개 지워졌는지 확인
         int bno = boardDao.selectAll().get(0).getBno();
         assertTrue(boardDao.delete(bno,board.getWriter())==1);
         assertTrue(boardDao.count()==2);
@@ -152,7 +166,22 @@ public class BoardDaoImplTest {
     }
 
     @Test
-    public void selectPage() {
+    public void selectPageTest() throws Exception{
+        boardDao.deleteAll();
+        for(int i=1; i<=10; i++){
+            BoardDto boardDto = new BoardDto(""+i,"content"+i,"asdf");
+            boardDao.insert(boardDto);
+        }
+        Map map = new HashMap();
+        map.put("offset", 0);
+        map.put("pageSize", 3);
+
+        List<BoardDto> list = boardDao.selectPage(map);
+        System.out.println(list);
+        assertTrue(list.get(0).getTitle().equals("10"));
+        assertTrue(list.get(1).getTitle().equals("9"));
+        assertTrue(list.get(2).getTitle().equals("8"));
+
     }
 
     @Test
@@ -160,6 +189,15 @@ public class BoardDaoImplTest {
     }
 
     @Test
-    public void increaseViewCnt() {
+    public void increaseViewCnt() throws Exception {
+        boardDao.deleteAll();
+
+        BoardDto board = new BoardDto("title6", "content6", "writer6");
+        assertTrue(boardDao.insert(board)==1);
+        assertTrue(boardDao.count()==1);
+        Integer bno = boardDao.selectAll().get(0).getBno();
+        assertTrue(boardDao.increaseViewCnt(bno)==1);
+
+
     }
 }

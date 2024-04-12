@@ -42,7 +42,7 @@ public class BoardDaoImpl implements BoardDao {
     }
 
     @Override
-    public BoardDto select(int bno) throws Exception{
+    public BoardDto select(Integer bno) throws Exception{
         return session.selectOne(namespace+"select",bno);
     }
 
@@ -63,6 +63,6 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public int increaseViewCnt(Integer bno) throws Exception{
-        return session.update(namespace+"increseViewCnt", bno);
+        return session.update(namespace+"increaseViewCnt", bno);
     }
 }

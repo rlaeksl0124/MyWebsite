@@ -28,6 +28,7 @@
 
     <select id="selectAll" resultType="BoardDto">
         <include refid="selectBoard"/>
+        order by reg_date DESC, bno DESC
     </select>
 
     <select id="select" parameterType="int" resultType="BoardDto">
@@ -38,7 +39,7 @@
     <select id="selectPage" parameterType="map" resultType="BoardDto">
         <include refid="selectBoard"/>
         order by reg_date DESC, bno DESC
-        LIMIT #{offset}, #{pagesize}
+        LIMIT #{offset}, #{pageSize}
     </select>
 
     <update id="update" parameterType="BoardDto">
@@ -46,7 +47,7 @@
         set title = #{title}
           , content=#{content}
           , up_date=now()
-        where bno = #{bno}
+        where bno = #{bno} and writer=#{writer}
     </update>
 
     <update id="updateCommentCnt" parameterType="map">
@@ -55,6 +56,7 @@
         where bno = #{bno}
     </update>
 
+<!-- 조회수 count    -->
     <update id="increaseViewCnt" parameterType="int">
         update board
         set view_cnt = view_cnt + 1

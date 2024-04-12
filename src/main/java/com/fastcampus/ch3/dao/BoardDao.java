@@ -16,7 +16,7 @@ public interface BoardDao {
 
     List<BoardDto> selectAll() throws Exception;
 
-    BoardDto select(int bno) throws Exception;
+    BoardDto select(Integer bno) throws Exception;
 
     List<BoardDto> selectPage(Map map) throws Exception;
 

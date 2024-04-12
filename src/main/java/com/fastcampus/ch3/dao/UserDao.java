@@ -5,15 +5,15 @@ import com.fastcampus.ch3.domain.UserDto;
 import java.sql.SQLException;
 
 public interface UserDao {
-    int updateUser(UserDto userDto) throws SQLException;
+//    int updateUser(UserDto userDto) throws Exception;
+//
+//    UserDto selectUser(String userId) throws Exception;
+//
+    int deleteUser(UserDto userDto) throws Exception;
+//
+//    int deleteAll() throws Exception;
+//
+//    int insertUser(UserDto userDto) throws Exception;
 
-    UserDto selectUser(UserDto userDto) throws SQLException;
-
-    int deleteUser(UserDto userDto) throws SQLException;
-
-    int deleteAll() throws SQLException;
-
-    int insertUser(UserDto userDto) throws SQLException;
-
-    int count() throws SQLException;
+    int count() throws Exception;
 }
